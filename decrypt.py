@@ -37,7 +37,7 @@ def hill_climb_algorithm():
 
     iterations = 0
     count = 0
-    while iterations < 3:
+    while iterations < 8:
         random.shuffle(parentkey)  # randomly generate a key
         #print(parentkey)
         deciphered = re.sub('[^A-Za-z0-9]+', '', decrypt_message(''.join(parentkey), message).upper())
@@ -45,7 +45,7 @@ def hill_climb_algorithm():
         #print(len(deciphered))
         parentscore = fitness.score(deciphered)
 
-        while count < 3000:
+        while count < 2500:
             a = random.randint(0, 25)
             b = random.randint(0, 25)
             child = parentkey[:]
@@ -90,13 +90,15 @@ def decrypt_message(key, cipher):
     ##print(de_translated)
     return de_translated
 
+
 solutions = hill_climb_algorithm()
 best_key = max(solutions.keys(), key=(lambda k: solutions[k]))
-#print("The best possible key is: \n" + best_key)
 
 key_file = open(os.path.join(os.getcwd(), 'key.txt'), 'w')
 key_file.write(best_key)
 key_file.close()
+
+##print(decrypt_message(best_key, message))
 
 # 1. Remove spaces from encrypted
 # 2. Remove spaces and non-letters from the decrypted
