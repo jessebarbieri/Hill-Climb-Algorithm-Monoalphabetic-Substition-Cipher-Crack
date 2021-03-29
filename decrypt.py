@@ -28,6 +28,7 @@ def check_file():
 message = check_file()
 
 solutions = {}
+solutions_attempt2 = {}
 
 
 def hill_climb_algorithm():
@@ -37,7 +38,7 @@ def hill_climb_algorithm():
 
     iterations = 0
     count = 0
-    while iterations < 8:
+    while iterations < 10:
         random.shuffle(parentkey)  # randomly generate a key
         #print(parentkey)
         deciphered = re.sub('[^A-Za-z0-9]+', '', decrypt_message(''.join(parentkey), message).upper())
@@ -45,7 +46,7 @@ def hill_climb_algorithm():
         #print(len(deciphered))
         parentscore = fitness.score(deciphered)
 
-        while count < 2500:
+        while count < 1000:
             a = random.randint(0, 25)
             b = random.randint(0, 25)
             child = parentkey[:]
@@ -87,7 +88,6 @@ def decrypt_message(key, cipher):
             # symbol is not in LETTERS, just add it
             de_translated += symbol
 
-    ##print(de_translated)
     return de_translated
 
 
@@ -98,7 +98,5 @@ key_file = open(os.path.join(os.getcwd(), 'key.txt'), 'w')
 key_file.write(best_key)
 key_file.close()
 
-##print(decrypt_message(best_key, message))
+print(decrypt_message(best_key, message))
 
-# 1. Remove spaces from encrypted
-# 2. Remove spaces and non-letters from the decrypted
