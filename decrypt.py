@@ -46,7 +46,7 @@ def hill_climb_algorithm():
         #print(len(deciphered))
         parentscore = fitness.score(deciphered)
 
-        while count < 1000:
+        while count < 2500:
             a = random.randint(0, 25)
             b = random.randint(0, 25)
             child = parentkey[:]
@@ -92,6 +92,7 @@ def decrypt_message(key, cipher):
 
 
 solutions = hill_climb_algorithm()
+print(solutions)
 best_key = max(solutions.keys(), key=(lambda k: solutions[k]))
 
 key_file = open(os.path.join(os.getcwd(), 'key.txt'), 'w')
