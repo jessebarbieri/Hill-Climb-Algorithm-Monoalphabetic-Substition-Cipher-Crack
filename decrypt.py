@@ -33,26 +33,26 @@ def create_ngram():
     for line in open('english_trigrams.txt'):
         key, count, = line.split()
         ngram_dict[key] = int(count)
-    length = len(key)
+    key_length = len(key)
     sum_val = sum(ngram_dict.values())
 
     for key in ngram_dict.keys():
         ngram_dict[key] = log10(float(ngram_dict[key]) / sum_val)
 
     floor = log10(0.01 / sum_val)
-    return floor, ngram_dict, length
+    return floor, ngram_dict, key_length
 
 
 ngram_floor, dict_ngram, length = create_ngram()
 
 
-def ngram_score(decrypted, ngram_floor, dict_ngram, length):
+def ngram_score(d_attempt, floor, ngram, l_key):
     score = 0
-    for i in range(len(decrypted) - length + 1):
-        if decrypted[i:i + length] in dict_ngram:
-            score += dict_ngram.get(decrypted[i:i + length])
+    for i in range(len(d_attempt) - l_key + 1):
+        if d_attempt[i:i + l_key] in ngram:
+            score += ngram.get(d_attempt[i:i + l_key])
         else:
-            score += ngram_floor
+            score += floor
 
     return score
 
