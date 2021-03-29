@@ -25,9 +25,7 @@ def check_file():
 
 
 message = check_file()
-
 solutions = {}
-solutions_attempt2 = {}
 
 
 def create_ngram():
@@ -50,7 +48,6 @@ ngram_floor, dict_ngram, length = create_ngram()
 
 def ngram_score(decrypted, ngram_floor, dict_ngram, length):
     score = 0
-
     for i in range(len(decrypted) - length + 1):
         if decrypted[i:i + length] in dict_ngram:
             score += dict_ngram.get(decrypted[i:i + length])
